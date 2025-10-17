@@ -1,10 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-//s@import "tailwindcss";
-
-//html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,8 +12,11 @@ body {
 .cdk-drag-placeholder {
   opacity: 0;
 }
-
-.cdk-drag-preview > div {
+.cdk-drag-preview,
+.cdk-drag-preview input,
+.cdk-drag-preview textarea,
+.cdk-drag-preview select,
+.cdk-drag-preview button  {
   @apply bg-green-300 shadow-md;
 }
 
@@ -26,7 +24,6 @@ body {
   border: 1px solid red;
 }
 
-/* Animate items as they're being sorted. */
 .cdk-drop-list-dragging .cdk-drag {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
