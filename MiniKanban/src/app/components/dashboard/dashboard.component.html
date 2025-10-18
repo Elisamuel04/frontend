@@ -1,0 +1,63 @@
+<div class="container my-4">
+
+  <!-- Contenedor del tablero con scroll horizontal en móviles -->
+
+    <span class="navbar-brand navbar navbar-dark bg-dark p-3 justify-content-center" style="width: 100%;">Dashboard</span>
+
+  <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 overflow-x-auto" cdkDropListGroup>
+    <ng-container *ngFor="let column of columns; trackBy: trackById">
+      <app-kanban-column
+        cdkDrag
+        class="flex-1 min-w-[250px] p-6 border-r border-gray-300 last:border-r-0 bg-gray-50 rounded-md"
+        cdkDropList
+        [cdkDropListData]="column.tickets"
+        (cdkDropListDropped)="drop($event)"
+      >
+      <h2 class="font-bold">{{ column.title }}</h2>
+
+        <ng-container *ngFor="let ticket of column.tickets; trackBy: trackByTicketId">
+          <div cdkDrag class="bg-white p-4 rounded-lg shadow-md mb-4">
+            <input
+              type="text"
+              [value]="ticket.title"
+              (input)="editTicket(ticket, 'title', $any($event.target).value)"
+              class="font-semibold mb-2 w-full border-b border-gray-300"
+            />
+            <textarea
+              (input)="editTicket(ticket, 'description', $any($event.target).value)"
+              class="w-full border-b border-gray-200 mb-2"
+              placeholder="Descripción"
+            >{{ ticket.description }}</textarea>
+            <div class="flex justify-between items-center mt-2">
+              <select
+                (change)="editTicket(ticket, 'priority', $any($event.target).value)"
+                [value]="ticket.priority"
+              >
+                <option value="High">Alta</option>
+                <option value="Medium">Media</option>
+                <option value="Low">Baja</option>
+              </select>
+              <button (click)="deleteTicket(column.id, ticket.id)" class="text-red-500">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </ng-container>
+                  <button
+            (click)="addTicket(column.id)"
+            class="mt-4 text-sm bg-blue-500 text-white px-3 py-1 rounded"
+          >
+            + Añadir Ticket
+          </button>
+      </app-kanban-column>
+    </ng-container>
+  </div>
+</div>
+
+<footer class="text-center p-4 bg-blue-900 text-white">
+  <p>No olvides guardar tus cambios</p>
+  <button class="btn btn-outline-light" (click)="openPopup()">Guardar</button>
+</footer>
+
+<app-save-popup (confirm)="onConfirm($event)"></app-save-popup>
+

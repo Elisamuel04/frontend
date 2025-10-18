@@ -6,15 +6,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-register',
   standalone: true,
   imports: [FormsModule],
-  template: `
-    <h2>Register</h2>
-    <form (ngSubmit)="register()">
-      <input [(ngModel)]="username" name="username" placeholder="Username" />
-      <input [(ngModel)]="password" name="password" type="password" placeholder="Password" />
-      <button type="submit">Register</button>
-    </form>
-    <p>{{message}}</p>
-  `
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   username = '';

@@ -4,12 +4,13 @@ import { NgFor } from '@angular/common';
 import { KanbanColumn, KanbanItem } from './interfaces/kanban.interface';
 import { KanbanColumnComponent } from './components/kanban-column/kanban-column.component';
 import { KanbanItemComponent } from './components/kanban-item/kanban-item.component';
+import { LoginComponent } from './components/login/login.component';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ViewChild } from '@angular/core';
 import { SavePopupComponent } from './components/save-popup/save-popup.component';
 import { KanbanService } from './services/kanban.service';
-
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,9 @@ import { KanbanService } from './services/kanban.service';
     CdkDropList,
     CdkDropListGroup,
     NgFor,
-    SavePopupComponent
+    SavePopupComponent,
+    RouterOutlet,
+    LoginComponent
   ],
 })
 export class AppComponent {
