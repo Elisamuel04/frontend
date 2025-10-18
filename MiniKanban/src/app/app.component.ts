@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CdkDrag, CdkDragHandle, CdkDropList, CdkDropListGroup, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { KanbanColumn, KanbanItem } from './interfaces/kanban.interface';
-import { KanbanColumnComponent } from './components/kanban-column.component';
-import { KanbanItemComponent } from './components/kanban-item.component';
+import { KanbanColumnComponent } from './kanban-column/kanban-column.component';
+import { KanbanItemComponent } from './kanban-item/kanban-item.component';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -22,6 +22,7 @@ import { v4 as uuidv4 } from 'uuid';
   ],
 })
 export class AppComponent {
+  title = 'MiniKanban';
   columns: KanbanColumn[] = [
     { id: 'todo', title: 'To Do', tickets: [] },
     { id: 'in-progress', title: 'In Progress', tickets: [] },

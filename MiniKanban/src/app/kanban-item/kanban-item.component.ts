@@ -16,19 +16,7 @@ const statusMapperText = {
 @Component({
   selector: 'app-kanban-item',
   standalone: true,
-  template: `
-    <div class="bg-white p-4 rounded-lg shadow-md cursor-pointer">
-      <!-- Usar item() directamente -->
-      <p class="font-semibold mb-4">{{ item().title }}</p>
-      <p class="text-sm">{{ item().description }}</p>
-
-      <div class="flex justify-end">
-        <div [class]="color()" class="px-4 py-1 rounded-full mt-4">
-          <span>{{ statusText() }}</span>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './kanban-item.component.html',
 })
 export class KanbanItemComponent {
   item = input.required<KanbanItem>();
