@@ -99,19 +99,24 @@ export class AppComponent {
     });
   }
 
-editTicket(ticket: KanbanItem, field: keyof KanbanItem, value: string) {
-  if (field === 'status' && (value === 'todo' || value === 'in-progress' || value === 'done')) {
-    ticket.status = value;
-  } else {
-    (ticket as any)[field] = value;
+  editTicket(ticket: KanbanItem, field: keyof KanbanItem, value: string) {
+    if (field === 'status' && (value === 'todo' || value === 'in-progress' || value === 'done')) {
+      ticket.status = value;
+    } else {
+      (ticket as any)[field] = value;
+    }
   }
-}
 
 
   deleteTicket(columnId: string, ticketId: string) {
     const column = this.columns.find(c => c.id === columnId);
     if (!column) return;
     column.tickets = column.tickets.filter(t => t.id !== ticketId);
+
+    this.kanbanService.deleteItem(ticketId).subscribe({
+      next: () => console.log(`Ticket ${ticketId} eliminado en DB`),
+      error: (err) => console.error('❌ Error al borrar ticket:', err),
+    });
   }
 
 
