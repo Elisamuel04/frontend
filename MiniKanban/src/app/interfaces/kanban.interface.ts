@@ -8,6 +8,5 @@ export interface KanbanItem {
   id: string;
   title: string;
   description: string;
-  assignee: string;
   priority: 'High' | 'Medium' | 'Low';
 }
