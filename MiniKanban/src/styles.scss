@@ -12,11 +12,7 @@ body {
 .cdk-drag-placeholder {
   opacity: 0;
 }
-.cdk-drag-preview,
-.cdk-drag-preview input,
-.cdk-drag-preview textarea,
-.cdk-drag-preview select,
-.cdk-drag-preview button  {
+.cdk-drag-preview  {
   @apply bg-green-300 shadow-md;
 }
 
@@ -27,7 +23,6 @@ body {
 .cdk-drop-list-dragging .cdk-drag {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
-
 
 
 /* Carousel styling */
@@ -69,4 +64,5 @@ body {
 .navbar .nav-link {
   color: #fff !important;
 }
+
 

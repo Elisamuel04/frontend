@@ -1,6 +1,12 @@
-<div class="max-w-[1000px] mx-auto my-24 px-4">
-  <h1>Dashboard</h1>
+<div class="container my-4">
+
   <!-- Contenedor del tablero con scroll horizontal en móviles -->
+
+
+<nav class="navbar navbar-dark bg-dark p-3">
+  <span class="navbar-brand">Dashboard</span>
+</nav>
+
   <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 overflow-x-auto" cdkDropListGroup>
     <ng-container *ngFor="let column of columns; trackBy: trackById">
       <app-kanban-column
@@ -10,15 +16,7 @@
         [cdkDropListData]="column.tickets"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl md:text-2xl font-bold">{{ column.title }}</h2>
-          <button
-            (click)="addTicket(column.id)"
-            class="px-2 py-1 bg-blue-500 text-white rounded text-sm md:text-base"
-          >
-            + Añadir
-          </button>
-        </div>
+      <h2 class="font-bold">{{ column.title }}</h2>
 
         <ng-container *ngFor="let ticket of column.tickets; trackBy: trackByTicketId">
           <div cdkDrag class="bg-white p-4 rounded-lg shadow-md mb-4">
@@ -48,7 +46,21 @@
             </div>
           </div>
         </ng-container>
+                  <button
+            (click)="addTicket(column.id)"
+            class="mt-4 text-sm bg-blue-500 text-white px-3 py-1 rounded"
+          >
+            + Añadir Ticket
+          </button>
       </app-kanban-column>
     </ng-container>
   </div>
 </div>
+
+<footer class="text-center p-4 bg-blue-900 text-white">
+  <p>No olvides guardar tus cambios</p>
+  <button class="btn btn-outline-light" (click)="openPopup()">Guardar</button>
+</footer>
+
+<app-save-popup (confirm)="onConfirm($event)"></app-save-popup>
+

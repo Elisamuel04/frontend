@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { KanbanItem } from '../interfaces/kanban.interface';
+import { KanbanItem } from '../../interfaces/kanban.interface';
 
 const statusMapperColors = {
   Medium: 'bg-yellow-200',

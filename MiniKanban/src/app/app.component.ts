@@ -2,9 +2,14 @@ import { Component } from '@angular/core';
 import { CdkDrag, CdkDragHandle, CdkDropList, CdkDropListGroup, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { KanbanColumn, KanbanItem } from './interfaces/kanban.interface';
-import { KanbanColumnComponent } from './kanban-column/kanban-column.component';
-import { KanbanItemComponent } from './kanban-item/kanban-item.component';
+import { KanbanColumnComponent } from './components/kanban-column/kanban-column.component';
+import { KanbanItemComponent } from './components/kanban-item/kanban-item.component';
 import { v4 as uuidv4 } from 'uuid';
+
+import { ViewChild } from '@angular/core';
+import { SavePopupComponent } from './components/save-popup/save-popup.component';
+import { KanbanService } from './services/kanban.service';
+
 
 @Component({
   selector: 'app-root',
@@ -19,6 +24,7 @@ import { v4 as uuidv4 } from 'uuid';
     CdkDropList,
     CdkDropListGroup,
     NgFor,
+    SavePopupComponent
   ],
 })
 export class AppComponent {
@@ -60,7 +66,7 @@ export class AppComponent {
       title: 'Nuevo ticket',
       description: '',
       assignee: '',
-      priority: 'Medium',
+      priority: 'Low',
     });
   }
 
@@ -72,5 +78,24 @@ export class AppComponent {
     const column = this.columns.find(c => c.id === columnId);
     if (!column) return;
     column.tickets = column.tickets.filter(t => t.id !== ticketId);
+  }
+
+
+
+  @ViewChild(SavePopupComponent) popup!: SavePopupComponent;
+
+  constructor(private kanbanService: KanbanService) {}
+
+  openPopup() {
+    this.popup.open();
+  }
+
+  onConfirm(save: boolean) {
+    if (save) {
+      this.kanbanService.saveItems([]).subscribe({
+        next: () => alert('✅ Items guardados correctamente'),
+        error: () => alert('❌ Error al guardar los items'),
+      });
+    }
   }
 }
