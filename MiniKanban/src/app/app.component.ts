@@ -58,6 +58,35 @@ export class AppComponent {
   }
 
   // CRUD de tickets
+
+  ngOnInit() {
+  this.loadTickets();
+  }
+
+  loadTickets() {
+    this.kanbanService.getItems().subscribe({
+      next: (tickets) => {
+        // Limpiar columnas actuales
+        this.columns.forEach(c => c.tickets = []);
+
+        // Asignar cada ticket a su columna según su estado
+        tickets.forEach(ticket => {
+          const column = this.columns.find(c => c.id === ticket.id);
+          if (column) {
+            column.tickets.push(ticket);
+          }
+        });
+
+        console.log('✅ Tickets cargados desde el backend:', this.columns);
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar tickets:', err);
+      }
+    });
+  }
+
+
+
   addTicket(columnId: string) {
     const column = this.columns.find(c => c.id === columnId);
     if (!column) return;
@@ -65,7 +94,6 @@ export class AppComponent {
       id: uuidv4(),
       title: 'Nuevo ticket',
       description: '',
-      assignee: '',
       priority: 'Low',
     });
   }
@@ -101,7 +129,7 @@ export class AppComponent {
         description: t.description,
         priority: t.priority,
         status: col.id, // El ID de la columna indica el estado
-        assignee: t.assignee || ''
+
       }))
     );
 
