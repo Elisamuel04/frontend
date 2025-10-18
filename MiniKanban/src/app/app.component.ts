@@ -91,11 +91,32 @@ export class AppComponent {
   }
 
   onConfirm(save: boolean) {
-    if (save) {
-      this.kanbanService.saveItems([]).subscribe({
-        next: () => alert('✅ Items guardados correctamente'),
-        error: () => alert('❌ Error al guardar los items'),
-      });
-    }
+    if (!save) return;
+
+    // Recolectar todos los tickets con su estado (columna)
+    const allTickets = this.columns.flatMap((col) =>
+      col.tickets.map((t) => ({
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        priority: t.priority,
+        status: col.id, // El ID de la columna indica el estado
+        assignee: t.assignee || ''
+      }))
+    );
+
+    console.log('🟦 Enviando tickets:', allTickets);
+
+    // Enviar al backend
+    this.kanbanService.saveItems(allTickets).subscribe({
+      next: (res) => {
+        console.log('✅ Guardado exitoso:', res);
+        alert('✅ Tickets guardados correctamente');
+      },
+      error: (err) => {
+        console.error('❌ Error al guardar los tickets:', err);
+        alert('❌ Error al guardar los tickets: ' + (err.error?.error || 'Error desconocido'));
+      },
+    });
   }
 }
