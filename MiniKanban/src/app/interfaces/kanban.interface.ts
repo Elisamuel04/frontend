@@ -9,4 +9,5 @@ export interface KanbanItem {
   title: string;
   description: string;
   priority: 'High' | 'Medium' | 'Low';
+  status: 'todo' | 'in-progress' | 'done';
 }

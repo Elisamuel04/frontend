@@ -71,7 +71,7 @@ export class AppComponent {
 
         // Asignar cada ticket a su columna según su estado
         tickets.forEach(ticket => {
-          const column = this.columns.find(c => c.id === ticket.id);
+          const column = this.columns.find(c => c.id === ticket.status);
           if (column) {
             column.tickets.push(ticket);
           }
@@ -95,12 +95,18 @@ export class AppComponent {
       title: 'Nuevo ticket',
       description: '',
       priority: 'Low',
+      status: 'todo',
     });
   }
 
-  editTicket(ticket: KanbanItem, field: keyof KanbanItem, value: string) {
-    ticket[field] = value as any;
+editTicket(ticket: KanbanItem, field: keyof KanbanItem, value: string) {
+  if (field === 'status' && (value === 'todo' || value === 'in-progress' || value === 'done')) {
+    ticket.status = value;
+  } else {
+    (ticket as any)[field] = value;
   }
+}
+
 
   deleteTicket(columnId: string, ticketId: string) {
     const column = this.columns.find(c => c.id === columnId);
@@ -128,8 +134,7 @@ export class AppComponent {
         title: t.title,
         description: t.description,
         priority: t.priority,
-        status: col.id, // El ID de la columna indica el estado
-
+        status: col.id as 'todo' | 'in-progress' | 'done',
       }))
     );
 
