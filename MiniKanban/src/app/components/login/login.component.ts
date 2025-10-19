@@ -21,7 +21,7 @@ export class LoginComponent {
       next: (res) => {
         this.auth.saveToken(res.token);
         this.message = '✅ Login exitoso!';
-        this.router.navigate(['/dashboard']); // 👈 Redirigir al dashboard
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.message = err.error?.error || '❌ Error al iniciar sesión';
