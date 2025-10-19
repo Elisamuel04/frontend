@@ -11,17 +11,31 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent {
   username = '';
   password = '';
+  repeatPassword = '';
   message = '';
 
   constructor(private auth: AuthService) {}
 
   register() {
+    // ✅ Validar contraseñas
+    if (this.password !== this.repeatPassword) {
+      this.message = '❌ Las contraseñas no coinciden';
+      return;
+    }
+
+    // ✅ Validar campos vacíos
+    if (!this.username || !this.password) {
+      this.message = '⚠️ Debes llenar todos los campos';
+      return;
+    }
+
+    // ✅ Llamar al backend
     this.auth.register(this.username, this.password).subscribe({
       next: (res) => {
-        this.message = 'Registro exitoso!';
+        this.message = '✅ Registro exitoso!';
       },
       error: (err) => {
-        this.message = err.error?.error || 'Error';
+        this.message = err.error?.error || '❌ Error en el registro';
       }
     });
   }

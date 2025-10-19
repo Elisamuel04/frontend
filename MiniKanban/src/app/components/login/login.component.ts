@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,17 @@ export class LoginComponent {
   password = '';
   message = '';
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   login() {
     this.auth.login(this.username, this.password).subscribe({
       next: (res) => {
         this.auth.saveToken(res.token);
-        this.message = 'Login exitoso!';
+        this.message = '✅ Login exitoso!';
+        this.router.navigate(['/dashboard']); // 👈 Redirigir al dashboard
       },
       error: (err) => {
-        this.message = err.error?.error || 'Error';
+        this.message = err.error?.error || '❌ Error al iniciar sesión';
       }
     });
   }
