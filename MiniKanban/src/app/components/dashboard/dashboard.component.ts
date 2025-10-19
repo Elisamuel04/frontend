@@ -7,6 +7,8 @@ import { SavePopupComponent } from '../../components/save-popup/save-popup.compo
 import { KanbanService } from '../../services/kanban.service';
 import { KanbanColumnComponent } from '../../components/kanban-column/kanban-column.component';
 import { KanbanItemComponent } from '../../components/kanban-item/kanban-item.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -118,7 +120,7 @@ export class DashboardComponent {
 
   @ViewChild(SavePopupComponent) popup!: SavePopupComponent;
 
-  constructor(private kanbanService: KanbanService) {}
+  constructor(private kanbanService: KanbanService, private authService: AuthService, private router: Router) {}
 
   openPopup() {
     this.popup.open();
@@ -151,5 +153,10 @@ export class DashboardComponent {
         alert('❌ Error al guardar los tickets: ' + (err.error?.error || 'Error desconocido'));
       },
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

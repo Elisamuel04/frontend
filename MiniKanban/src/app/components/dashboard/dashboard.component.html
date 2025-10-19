@@ -3,6 +3,7 @@
   <!-- Contenedor del tablero con scroll horizontal en móviles -->
 
     <span class="navbar-brand navbar navbar-dark bg-dark p-3 justify-content-center" style="width: 100%;">Dashboard</span>
+    <button class="my-4 btn btn-warning" (click)="logout()">Log Out</button>
 
   <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 overflow-x-auto" cdkDropListGroup>
     <ng-container *ngFor="let column of columns; trackBy: trackById">
