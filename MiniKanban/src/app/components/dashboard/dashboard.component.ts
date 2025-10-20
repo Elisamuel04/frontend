@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList, CdkDrag, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { KanbanColumn, KanbanItem } from '../../interfaces/kanban.interface';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +19,9 @@ import { AuthService } from '../../services/auth.service';
     KanbanItemComponent,
     SavePopupComponent,
     CdkDropList,
-  ],
+    CdkDropListGroup,
+    CdkDrag,
+    ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
   
