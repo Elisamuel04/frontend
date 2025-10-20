@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -9,11 +9,17 @@ import { Router } from '@angular/router';
   imports: [FormsModule],
   templateUrl: './register.component.html'
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
   username = '';
   password = '';
   repeatPassword = '';
   message = '';
+
+  @ViewChild('mainContent') mainContent!: ElementRef;
+
+  ngAfterViewInit() {
+    this.mainContent.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } 
 
   constructor(private auth: AuthService, private router: Router) {}
 
