@@ -1,19 +1,20 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule],
-  templateUrl: './register.component.html'
+  imports: [ReactiveFormsModule, CommonModule],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements AfterViewInit {
-  username = '';
-  password = '';
-  repeatPassword = '';
+  registerForm!: FormGroup;
   message = '';
+
 
   @ViewChild('mainContent') mainContent!: ElementRef;
 
@@ -21,23 +22,36 @@ export class RegisterComponent implements AfterViewInit {
     this.mainContent.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } 
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {}
+
+    ngOnInit() {
+    this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      repeatPassword: ['', Validators.required],
+    });
+  }
 
   register() {
+    const { username, password, repeatPassword } = this.registerForm.value;
     // ✅ Validar contraseñas
-    if (this.password !== this.repeatPassword) {
+    if (password !== repeatPassword) {
       this.message = '❌ Las contraseñas no coinciden';
       return;
     }
 
     // ✅ Validar campos vacíos
-    if (!this.username || !this.password) {
+    if (!username || !password) {
       this.message = '⚠️ Debes llenar todos los campos';
       return;
     }
 
     // ✅ Llamar al backend
-    this.auth.register(this.username, this.password).subscribe({
+    this.auth.register(username, password).subscribe({
       next: (res) => {
         this.message = '✅ Registro exitoso!';
         this.router.navigate(['/login']);
