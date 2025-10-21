@@ -38,19 +38,19 @@ export class RegisterComponent implements AfterViewInit {
 
   register() {
     const { username, password, repeatPassword } = this.registerForm.value;
-    // ✅ Validar contraseñas
+    // Validar contraseñas
     if (password !== repeatPassword) {
       this.message = '❌ Las contraseñas no coinciden';
       return;
     }
 
-    // ✅ Validar campos vacíos
+    // Validar campos vacíos
     if (!username || !password) {
       this.message = '⚠️ Debes llenar todos los campos';
       return;
     }
 
-    // ✅ Llamar al backend
+    // Llamar al backend
     this.auth.register(username, password).subscribe({
       next: (res) => {
         this.message = '✅ Registro exitoso!';

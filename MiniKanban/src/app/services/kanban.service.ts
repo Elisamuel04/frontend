@@ -7,7 +7,7 @@ import { KanbanItem } from '../interfaces/kanban.interface';
   providedIn: 'root',
 })
 export class KanbanService {
-  private baseUrl = 'http://localhost:3000/tasks'; // tu backend Express
+  private baseUrl = 'http://localhost:3000/api/tasks';
 
   constructor(private http: HttpClient) {}
 

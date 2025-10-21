@@ -38,6 +38,7 @@ export class LoginComponent implements AfterViewInit {
   login() {
 
     const { username, password } = this.loginForm.value;
+    
     this.auth.login(username, password).subscribe({
       next: (res) => {
         this.auth.saveToken(res.token);
