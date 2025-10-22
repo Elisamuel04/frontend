@@ -133,12 +133,13 @@ export class DashboardComponent {
 
     // Recolectar todos los tickets con su estado (columna)
     const allTickets = this.columns.flatMap((col) =>
-      col.tickets.map((t) => ({
+      col.tickets.map((t, index) => ({
         id: t.id,
         title: t.title,
         description: t.description,
         priority: t.priority,
         status: col.id as 'todo' | 'in-progress' | 'done',
+        order_index: index, 
       }))
     );
 
