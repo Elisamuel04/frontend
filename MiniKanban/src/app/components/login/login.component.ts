@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent implements AfterViewInit {
   loginForm!: FormGroup;
   message = '';
+  loading = false;
 
   @ViewChild('mainContent') mainContent!: ElementRef;
 
@@ -37,6 +38,11 @@ export class LoginComponent implements AfterViewInit {
 
   login() {
 
+    if (this.loginForm.invalid || this.loading) return;
+
+    this.loading = true;
+    this.message = '⏳ Iniciando sesión...';
+
     const { username, password } = this.loginForm.value;
     
     this.auth.login(username, password).subscribe({
@@ -44,10 +50,12 @@ export class LoginComponent implements AfterViewInit {
         this.auth.saveToken(res.token);
         this.message = '✅ Login exitoso!';
         this.router.navigate(['/dashboard']);
+        this.loading = false;
       },
       error: (err) => {
         this.message = err.error?.error || '❌ Error al iniciar sesión';
-      }
+        this.loading = false;
+      },
     });
   }
 }
