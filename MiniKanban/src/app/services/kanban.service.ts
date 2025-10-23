@@ -20,8 +20,6 @@ export class KanbanService {
     });
   }
 
-  
-
   getItems(): Observable<KanbanItem[]> {
     return this.http.get<KanbanItem[]>(this.baseUrl, { headers: this.getAuthHeaders() });
   }

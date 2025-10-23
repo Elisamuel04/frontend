@@ -4,7 +4,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
     <div class="container-fluid">
       <!-- Navbar brand -->
-      <a class="navbar-brand nav-link" target="_blank" href="/">
+      <a class="navbar-brand nav-link" routerLink="/">
         <strong>Kanban</strong>
       </a>
       <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarExample01"
@@ -14,18 +14,33 @@
       <div class="navbar-collapse" id="navbarExample01">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="/">Inicio</a>
+            <a class="nav-link" aria-current="page" routerLink="/">Inicio</a>
           </li>
         </ul>
 
         <ul class="navbar-nav list-inline">
           <!-- Icons -->
 
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/Elisamuel04" rel="nofollow" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
+
+
+          <div class="d-flex align-items-center">
+            <button data-mdb-ripple-init type="button" class="btn btn-link px-3 me-2" routerLink="/login">
+              Login
+            </button>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary me-3" routerLink="/register">
+              Sign up for free
+            </button>
+            <a
+              data-mdb-ripple-init
+              class="btn btn-dark px-3"
+              href="https://github.com/Elisamuel04"
+              role="button"
+              target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+          </div>
+
+
         </ul>
       </div>
     </div>
@@ -55,10 +70,12 @@
           <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white text-center" data-mdb-theme="dark">
               <h1 class="mb-3">Mini Kanban</h1>
-              <h5 class="mb-4">Administra tus tickets en el Dashboard</h5>
-              <a class="btn btn-outline-light btn-lg m-2" href="/login"
+              <h5 class="mb-4">  Administra tus tickets fácilmente en el panel de control. <br>
+                Crea, organiza y da seguimiento a tus tareas en tiempo real con una interfaz intuitiva y moderna. <br>
+                Simplifica tu flujo de trabajo y mantén tus proyectos siempre al día.</h5>
+              <a class="btn btn-outline-light btn-lg m-2" routerLink="/login"
                 role="button" rel="nofollow">log in</a>
-              <a class="btn btn-outline-light btn-lg m-2" href="/register"
+              <a class="btn btn-outline-light btn-lg m-2" routerLink="/register"
                  role="button">Sign up</a>
             </div>
           </div>
@@ -70,7 +87,7 @@
         <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
           <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white text-center">
-              <h2>Bienvenido a Mini Kanban</h2>
+              <h1>Bienvenido a Mini Kanban</h1>
             </div>
           </div>
         </div>
@@ -87,7 +104,8 @@
             ">
           <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white text-center">
-              <h2>La mejor forma de gestionar y administrar tus tareas</h2>
+              <h2> Gestiona tus tareas de forma ágil y visual. <br>
+                Organiza tus tickets, controla su progreso y mejora tu productividad desde un solo lugar.</h2>
               <a class="btn btn-outline-light btn-lg m-2"
                 href="/" target="_blank" role="button">Home</a>
             </div>
@@ -123,7 +141,7 @@
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
     © 2025 Copyright:
-    <a class="text-white" href="https://mdbootstrap.com/">Prueba Tecnica de Elisamuel Valera</a>
+    <a class="text-white" routerLink="/">Prueba Tecnica de Elisamuel Valera</a>
   </div>
   <!-- Copyright -->
 </footer>
