@@ -134,6 +134,9 @@
 
 <router-outlet></router-outlet>
 
+<button *ngIf="showButton" (click)="scrollToTop()" class="scroll-btn">
+↑
+</button>
 
 <!-- Footer -->
 <footer class="text-center text-white" style="background-color: #0a4275;">
